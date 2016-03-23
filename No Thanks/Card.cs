@@ -10,14 +10,11 @@ namespace No_Thanks
     {
         int value;
 
+        public int Value { get { return value; } }
+
         public Card(int v)
         {
             value = v;
-        }
-
-        public int getValue()
-        {
-            return value;
         }
     }
 }

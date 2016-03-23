@@ -8,6 +8,7 @@ namespace No_Thanks
 {
     //This class includes all the attributes of a Player in No Thanks including
     //number of tokens, cards, the player's name, and their score
+
     class Player
     {
         string name;
@@ -49,15 +50,13 @@ namespace No_Thanks
             int cardPoints = 0;
             for (int i = 0; i < cards.Count; i++)
             {
-                cardPoints += cards.ElementAt(i).getValue();
-                if (i != 0 && cards.ElementAt(i - 1).getValue() + 1 == cards.ElementAt(i).getValue())
+                cardPoints += cards.ElementAt(i).Value;
+                if (i != 0 && cards.ElementAt(i - 1).Value + 1 == cards.ElementAt(i).Value)
                 {
-                    cardPoints -= cards.ElementAt(i).getValue();
+                    cardPoints -= cards.ElementAt(i).Value;
                 }
             }
             score = cardPoints - tokens;
         }
-
-
     }
 }

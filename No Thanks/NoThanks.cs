@@ -10,5 +10,50 @@ namespace No_Thanks
     {
         //This is the class that sets up all the Game's rules
         //In other words, an instance of the NoThanks class will be a game of No Thanks
+
+        int numOfPlayers = 0;
+        Player[] players;
+        List<Card> deck = new List<Card>();
+
+        public NoThanks(int plrs)
+        {
+            numOfPlayers = plrs;
+            players = new Player[plrs];
+            getNames();
+        }
+
+        public NoThanks()
+        {
+            Console.WriteLine("How many players are playing?");
+            int numberOfPlrs = Convert.ToInt32(Console.ReadLine());
+            numOfPlayers = numberOfPlrs;
+            players = new Player[numberOfPlrs];
+            getNames();
+        }
+
+        public void getNames()
+        {
+            for (int i = 0; i < numOfPlayers; i++)
+            {
+                Console.WriteLine("Enter in your name: ");
+                string plrName = Console.ReadLine();
+                players[i] = new Player(plrName);
+            }
+        }
+
+        public void DisplayPlayers()
+        {
+            for (int i = 0; i < numOfPlayers; i++)
+            {
+                Console.WriteLine("Player{0}: {1}\nTokens: {2}\n", i + 1, players[i].Name, players[i].Tokens);
+            }
+        }
+
+
+        //First player and player order
+        //Set up the deck
+        //Max number of players and deck size dependant on num of players
+        //Set up a choice method to pick between taking the card and placing a token
+        //Figure out if the tokens in the pot should be stored on the card itself or in the "NoThanks" object
     }
 }
