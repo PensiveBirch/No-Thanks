@@ -14,6 +14,8 @@ namespace No_Thanks
         int numOfPlayers = 0;
         Player[] players;
         List<Card> deck = new List<Card>();
+        Card faceupCard;
+        int tokensOnCurrentCard = 0;
 
         public NoThanks(int plrs)
         {
