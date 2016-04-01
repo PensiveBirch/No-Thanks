@@ -43,6 +43,21 @@ namespace No_Thanks
             }
         }
 
+        public void populateDeck()
+        {
+            //for loop to create every card from 3 to 35
+        }
+
+        public void shuffleDeck()
+        {
+            //shuffles current deck
+        }
+
+        public void setUpDeck()
+        {
+            //calls populateDeck() and takes 9 out and calls shuffle()
+        }
+
         public void DisplayPlayers()
         {
             for (int i = 0; i < numOfPlayers; i++)
