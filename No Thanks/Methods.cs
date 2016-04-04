@@ -29,6 +29,7 @@ namespace No_Thanks
             {
                 Console.WriteLine("Card{0} value: {1}", i + 1, list[i].Value);
             }
+            Console.WriteLine();
         }
     }
 }

@@ -22,6 +22,7 @@ namespace No_Thanks
             numOfPlayers = plrs;
             players = new Player[plrs];
             getNames();
+            setUpDeck();
         }
 
         public NoThanks()
@@ -31,6 +32,7 @@ namespace No_Thanks
             numOfPlayers = numberOfPlrs;
             players = new Player[numberOfPlrs];
             getNames();
+            setUpDeck();
         }
 
         public void getNames()
@@ -61,6 +63,15 @@ namespace No_Thanks
         public void setUpDeck()
         {
             //calls populateDeck() and takes 9 out and calls shuffle()
+            populateDeck();
+            shuffleDeck();
+            //displayDeck();
+            for (int i = 0; i < 9; i++)
+            {
+                Console.WriteLine("I removed {0}", deck[0].Value);
+                deck.RemoveAt(0);
+            }
+            shuffleDeck();
         }
 
         public void displayDeck()

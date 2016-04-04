@@ -54,12 +54,16 @@ namespace No_Thanks
         public static void Test4()
         {
             //Simple game setup
+            NoThanks newGame = new NoThanks();
+            //newGame.setUpDeck();
+            newGame.displayDeck();
         }
         static void Main(string[] args)
         {
             //Test1();
             //Test2();
-            Test3();
+            //Test3();
+            Test4();
             Console.ReadLine();
         }
     }
