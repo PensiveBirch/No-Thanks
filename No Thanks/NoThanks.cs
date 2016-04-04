@@ -14,7 +14,7 @@ namespace No_Thanks
         int numOfPlayers = 0;
         Player[] players;
         List<Card> deck = new List<Card>();
-        Card faceupCard;
+        //Card faceupCard;
         int tokensOnCurrentCard = 0;
 
         public NoThanks(int plrs)
@@ -46,16 +46,26 @@ namespace No_Thanks
         public void populateDeck()
         {
             //for loop to create every card from 3 to 35
+            for (int i = 3; i < 36; i++)
+            {
+                deck.Add(new Card(i));
+            }
         }
-
+        
         public void shuffleDeck()
         {
             //shuffles current deck
+            Methods.Shuffle(deck);
         }
 
         public void setUpDeck()
         {
             //calls populateDeck() and takes 9 out and calls shuffle()
+        }
+
+        public void displayDeck()
+        {
+            Methods.Display<Card>(deck);
         }
 
         public void DisplayPlayers()
@@ -65,6 +75,8 @@ namespace No_Thanks
                 Console.WriteLine("Player{0}: {1}\nTokens: {2}\n", i + 1, players[i].Name, players[i].Tokens);
             }
         }
+
+        
 
 
         //First player and player order

@@ -10,6 +10,7 @@ namespace No_Thanks
     {
         public static void Test1()
         {
+            //testing player creation, adding cards to a player's hand, and calculating a player's score
             Player tyler = new Player("Tyler");
             for (int i = 5; i < 10; i++)
             {
@@ -32,14 +33,33 @@ namespace No_Thanks
 
         public static void Test2()
         {
+            //Testing new NoThanks() constructor and DisplayPlayers()
             NoThanks game1 = new NoThanks();
             game1.DisplayPlayers();
         }
 
+        public static void Test3()
+        {
+            //Testing shuffle method in No Thanks class
+            List <Card> testDeck = new List<Card>();
+            for(int i = 3; i < 12; i++)
+            {
+                testDeck.Add(new Card(i));
+            }
+            Methods.Display<Card>(testDeck);
+            Methods.Shuffle(testDeck);
+            Methods.Display<Card>(testDeck);
+        }
+
+        public static void Test4()
+        {
+            //Simple game setup
+        }
         static void Main(string[] args)
         {
             //Test1();
-            Test2();
+            //Test2();
+            Test3();
             Console.ReadLine();
         }
     }
