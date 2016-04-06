@@ -8,7 +8,7 @@ namespace No_Thanks
 {
     class Card
     {
-        int value;
+        int value; //value on the card
 
         public int Value { get { return value; } }
 

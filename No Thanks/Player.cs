@@ -12,41 +12,37 @@ namespace No_Thanks
     class Player
     {
         string name;
-        int tokens;
-        List<Card> cards = new List<Card>();
-        int score;
+        int tokens;                          //Worth negative points
+        List<Card> cards = new List<Card>(); //Cards taken from deck
+        int score;                           //Caculated at the end (or as the game progresses)
 
+        //Properties
         public string Name { get { return name; } }
         public int Tokens { get { return tokens; } set { tokens = value; } }
         public List<Card> Cards { get { return cards; } }
         public int Score { get { return score; } set { score = value; } }
 
+        //Constructor
         public Player(string n)
         {
             name = n;
-            tokens = 11;
+            tokens = 11; //Start the game with 11 tokens
             score = 0;
         }
 
-        public Player()
-        {
-            name = "Bob";
-            tokens = 11;
-            score = 0;
-        }
-
-        public void AddTokens(int numOfTokens)
-        {
-            tokens += numOfTokens;
-        }
-
+        //Adds a card to the hand of the player
         public void AddCard(Card c)
         {
             cards.Add(c);
         }
 
+        //Calculates a player's score
         public void CalculateScore()
         {
+            /*Score = card points - number of tokens
+              card points are all of the card values added together, but any consecutive
+              runs of values are valued as the lowest value card
+              ex: cards{3, 4, 6, 8, 9, 10} = 3 + 6 + 9 = 18 card points */
             int cardPoints = 0;
             for (int i = 0; i < cards.Count; i++)
             {

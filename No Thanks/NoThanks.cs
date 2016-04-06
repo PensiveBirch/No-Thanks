@@ -11,13 +11,14 @@ namespace No_Thanks
         //This is the class that sets up all the Game's rules
         //In other words, an instance of the NoThanks class will be a game of No Thanks
 
-        int numOfPlayers = 0;
-        Player[] players;
-        List<Card> deck = new List<Card>();
-        Card faceupCard = null;
-        int tokensOnCurrentCard = 0;
-        Player currentPlayer = null;
+        int numOfPlayers = 0;               //Number of players
+        Player[] players;                   //Player array of all players, order is player order
+        List<Card> deck = new List<Card>(); //Deck of shuffled cards waiting to be turned over
+        Card faceupCard = null;             //current card that is showing to players
+        int tokensOnFaceupCard = 0;         //Number of tokens on that faceupCard
+        Player currentPlayer = null;        //The player whose turn it is
 
+        //Constructors
         public NoThanks(int plrs)
         {
             numOfPlayers = plrs;
@@ -36,6 +37,7 @@ namespace No_Thanks
             setUpDeck();
         }
 
+        //Asks for the names of the players playing
         public void getNames()
         {
             for (int i = 0; i < numOfPlayers; i++)
@@ -46,27 +48,26 @@ namespace No_Thanks
             }
         }
 
+        //Creates all cards in the deck from 3 to 35
         public void populateDeck()
         {
-            //for loop to create every card from 3 to 35
             for (int i = 3; i < 36; i++)
             {
                 deck.Add(new Card(i));
             }
         }
         
+        //Shuffles current deck
         public void shuffleDeck()
         {
-            //shuffles current deck
             Methods.Shuffle(deck);
         }
 
+        //Populates, shuffles, and removes 9 random cards to prepare for the start of the game
         public void setUpDeck()
         {
-            //calls populateDeck() and takes 9 out and calls shuffle()
             populateDeck();
             shuffleDeck();
-            //displayDeck();
             for (int i = 0; i < 9; i++)
             {
                 Console.WriteLine("I removed {0}", deck[0].Value);
@@ -76,11 +77,13 @@ namespace No_Thanks
             drawNewCard();
         }
 
+        //Prints out the cards in the deck
         public void displayDeck()
         {
             Methods.Display<Card>(deck);
         }
 
+        //Prints out the names and tokens of the players
         public void DisplayPlayers()
         {
             for (int i = 0; i < numOfPlayers; i++)
@@ -89,10 +92,13 @@ namespace No_Thanks
             }
         }
 
+        //Handles what happens when a player chooses (or is forced) to take the faceup card
+        //Tokens on card go to the player, and the card is added to that players hand.
+        //Then, if there are still cards in the deck, a new one is drawn. Else, the game ends
         public void takeCard(Player p)
         {
-            p.Tokens += tokensOnCurrentCard;
-            tokensOnCurrentCard = 0;
+            p.Tokens += tokensOnFaceupCard;
+            tokensOnFaceupCard = 0;
             p.AddCard(faceupCard);
             if (deck.Count > 0)
             {
@@ -104,6 +110,8 @@ namespace No_Thanks
             }
         }
 
+        //Handles what happens when a player chooses to say "No thanks" to the faceupcard and put one
+        //token on it instead. If the player chooses this without any tokens, they are forced to instead take the card
         public void pass(Player p)
         {
             if(p.Tokens == 0)
@@ -117,6 +125,7 @@ namespace No_Thanks
             }
         }
 
+        //Draws a new card from the deck and makes it the new faceup card
         public void drawNewCard()
         {
             faceupCard = deck[0];

@@ -55,7 +55,6 @@ namespace No_Thanks
         {
             //Simple game setup
             NoThanks newGame = new NoThanks();
-            //newGame.setUpDeck();
             newGame.displayDeck();
         }
         static void Main(string[] args)
