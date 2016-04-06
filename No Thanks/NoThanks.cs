@@ -14,8 +14,9 @@ namespace No_Thanks
         int numOfPlayers = 0;
         Player[] players;
         List<Card> deck = new List<Card>();
-        //Card faceupCard;
+        Card faceupCard = null;
         int tokensOnCurrentCard = 0;
+        Player currentPlayer = null;
 
         public NoThanks(int plrs)
         {
@@ -72,6 +73,7 @@ namespace No_Thanks
                 deck.RemoveAt(0);
             }
             shuffleDeck();
+            drawNewCard();
         }
 
         public void displayDeck()
@@ -85,6 +87,50 @@ namespace No_Thanks
             {
                 Console.WriteLine("Player{0}: {1}\nTokens: {2}\n", i + 1, players[i].Name, players[i].Tokens);
             }
+        }
+
+        public void takeCard(Player p)
+        {
+            p.Tokens += tokensOnCurrentCard;
+            tokensOnCurrentCard = 0;
+            p.AddCard(faceupCard);
+            if (deck.Count > 0)
+            {
+                drawNewCard();
+            }
+            else
+            {
+                endGame();
+            }
+        }
+
+        public void pass(Player p)
+        {
+            if(p.Tokens == 0)
+            {
+                takeCard(p);
+            }
+            else
+            {
+                p.Tokens -= 1;
+                nextTurn();
+            }
+        }
+
+        public void drawNewCard()
+        {
+            faceupCard = deck[0];
+            deck.RemoveAt(0);
+        }
+
+        public void endGame()
+        {
+            //End the game
+        }
+
+        public void nextTurn()
+        {
+            //Sets the currentplayer to the next player in the turn sequence
         }
 
         
