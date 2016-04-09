@@ -26,6 +26,11 @@ namespace No_Thanks
             }
         }
 
+        public static void Sort<Card>(this IList<Card> list)
+        {
+            //implement this to sort a list of cards by value
+        }
+
         //Prints out the value and count of a List of Cards
         public static void Display<Card>(this IList<No_Thanks.Card> list)
         {

@@ -17,14 +17,14 @@ namespace No_Thanks
         Card faceupCard = null;             //current card that is showing to players
         int tokensOnFaceupCard = 0;         //Number of tokens on that faceupCard
         Player currentPlayer = null;        //The player whose turn it is
+        int currentPlayerIndex = 0;
 
         //Constructors
         public NoThanks(int plrs)
         {
             numOfPlayers = plrs;
             players = new Player[plrs];
-            getNames();
-            setUpDeck();
+            startGame();
         }
 
         public NoThanks()
@@ -33,8 +33,7 @@ namespace No_Thanks
             int numberOfPlrs = Convert.ToInt32(Console.ReadLine());
             numOfPlayers = numberOfPlrs;
             players = new Player[numberOfPlrs];
-            getNames();
-            setUpDeck();
+            startGame();
         }
 
         //Asks for the names of the players playing
@@ -114,13 +113,14 @@ namespace No_Thanks
         //token on it instead. If the player chooses this without any tokens, they are forced to instead take the card
         public void pass(Player p)
         {
-            if(p.Tokens == 0)
+            if(p.Tokens <= 0)
             {
                 takeCard(p);
             }
             else
             {
                 p.Tokens -= 1;
+                tokensOnFaceupCard++;
                 nextTurn();
             }
         }
@@ -132,17 +132,81 @@ namespace No_Thanks
             deck.RemoveAt(0);
         }
 
+        public void startGame()
+        {
+            getNames();
+            setUpDeck();
+            currentPlayer = players[0];
+            while (deck.Count > 0)
+            {
+                playerTurn();
+            }
+        }
+
         public void endGame()
         {
             //End the game
+            //Stop the turns, tally up the scores, display the tallies and declare a winner
+            //Then terminate the game or ask if you want to play again
+        }
+
+        public void playerTurn()
+        {
+            //Ask the current player to either put a token on the card, or take it
+            displayChoice();
+            Console.WriteLine("\nDo you want to:\n[1] Pass by putting a token on the card (if you have one)");
+            Console.WriteLine("[2] Take the card and the tokens on it");
+            bool validChoice = false;
+            while (!validChoice)
+            {
+                int choice = Convert.ToInt32(Console.ReadLine());
+                if (choice == 1)
+                {
+                    pass(currentPlayer);
+                    validChoice = true;
+                }
+                else if (choice == 2)
+                {
+                    takeCard(currentPlayer);
+                    validChoice = true;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter 1 or 2");
+                }
+            }
         }
 
         public void nextTurn()
         {
             //Sets the currentplayer to the next player in the turn sequence
+            if(currentPlayerIndex + 1 < players.Length)
+            {
+                currentPlayerIndex++;
+            }
+            else if (currentPlayerIndex + 1 == players.Length)
+            {
+                currentPlayerIndex = 0;
+            }
+            currentPlayer = players[currentPlayerIndex];
         }
 
-        
+        public void displayChoice()
+        {
+            //Faceup card, your cards, others cards, your tokens, number of tokens on card
+            Console.WriteLine("\n\n\n\n\n\n\n-------------------------------------------------------------");
+            Console.WriteLine("{0}'s Turn:\n", currentPlayer.Name);
+            Console.WriteLine("Faceup card: {0}\nTokens on card: {1}", faceupCard.Value, tokensOnFaceupCard);
+            Console.WriteLine("Your tokens: {0}\n", currentPlayer.Tokens);
+            for (int i = 0; i < players.Length; i++)
+            {
+                if (players[i] != currentPlayer)
+                {
+                    players[i].displayPlayerInfo();
+                }
+            }
+            currentPlayer.displayPlayerInfo();
+        }
 
 
         //First player and player order

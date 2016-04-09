@@ -30,10 +30,12 @@ namespace No_Thanks
             score = 0;
         }
 
-        //Adds a card to the hand of the player
+        //Adds a card to the hand of the player and sorts it
         public void AddCard(Card c)
         {
             cards.Add(c);
+            //sort this player's cards by value order
+            Methods.Sort(cards);
         }
 
         //Calculates a player's score
@@ -53,6 +55,17 @@ namespace No_Thanks
                 }
             }
             score = cardPoints - tokens;
+        }
+
+        public void displayPlayerInfo()
+        {
+            //Print list of cards aquired
+            Console.WriteLine("{0}'s cards:", name);
+            for (int i = 0; i < cards.Count; i++)
+            {
+                Console.Write("{0}, ", cards[i].Value);
+            }
+            Console.WriteLine();
         }
     }
 }
