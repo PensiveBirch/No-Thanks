@@ -24,11 +24,13 @@ namespace No_Thanks
         {
             numOfPlayers = plrs;
             players = new Player[plrs];
+            printRules();
             startGame();
         }
 
         public NoThanks()
         {
+            printRules();
             Console.WriteLine("How many players are playing?");
             int numberOfPlrs = Convert.ToInt32(Console.ReadLine());
             numOfPlayers = numberOfPlrs;
@@ -206,6 +208,15 @@ namespace No_Thanks
                 }
             }
             currentPlayer.displayPlayerInfo();
+        }
+
+        public void printRules()
+        {
+            string rules = 
+@"Welcome to No Thanks
+Here are the rules:
+";
+            Console.WriteLine(rules);
         }
 
 
