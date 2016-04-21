@@ -31,10 +31,19 @@ namespace No_Thanks
         public NoThanks()
         {
             printRules();
-            Console.WriteLine("How many players are playing?");
-            int numberOfPlrs = Convert.ToInt32(Console.ReadLine());
-            numOfPlayers = numberOfPlrs;
-            players = new Player[numberOfPlrs];
+            while(numOfPlayers > 5 || numOfPlayers < 3)
+            {
+                Console.WriteLine("How many players are playing? (3-5 players)");
+                
+                try
+                {
+                    numOfPlayers = Convert.ToInt32(Console.ReadLine());
+                    players = new Player[numOfPlayers];
+                }
+                catch
+                {
+                }
+            }
             startGame();
         }
 
