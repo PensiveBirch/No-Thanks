@@ -207,7 +207,8 @@ namespace No_Thanks
             //Faceup card, your cards, others cards, your tokens, number of tokens on card
             Console.WriteLine("\n\n\n\n\n\n\n-------------------------------------------------------------");
             Console.WriteLine("{0}'s Turn:\n", currentPlayer.Name);
-            Console.WriteLine("Faceup card: {0}\nTokens on card: {1}", faceupCard.Value, tokensOnFaceupCard);
+            //Console.WriteLine("Faceup card: {0}\nTokens on card: {1}", faceupCard.Value, tokensOnFaceupCard);
+            Methods.PrintFaceupCard(faceupCard, tokensOnFaceupCard);
             Console.WriteLine("Your tokens: {0}\n", currentPlayer.Tokens);
             for (int i = 0; i < players.Length; i++)
             {
@@ -227,12 +228,5 @@ Here are the rules:
 ";
             Console.WriteLine(rules);
         }
-
-
-        //First player and player order
-        //Set up the deck
-        //Max number of players and deck size dependant on num of players
-        //Set up a choice method to pick between taking the card and placing a token
-        //Figure out if the tokens in the pot should be stored on the card itself or in the "NoThanks" object
     }
 }
