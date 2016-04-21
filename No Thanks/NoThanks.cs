@@ -170,7 +170,14 @@ namespace No_Thanks
             bool validChoice = false;
             while (!validChoice)
             {
-                int choice = Convert.ToInt32(Console.ReadLine());
+                int choice = 0;
+                try
+                {
+                    choice = Convert.ToInt32(Console.ReadLine());
+                }
+                catch
+                {
+                }
                 if (choice == 1)
                 {
                     pass(currentPlayer);
