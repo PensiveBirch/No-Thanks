@@ -10,6 +10,9 @@ namespace No_Thanks
     {
         //This is a class for static methods
 
+        public static string smallBreak = "-------------------------------------------------";
+        public static string largeBreak = "============================================================================";
+
         //Shuffles a List of Cards
         public static void Shuffle<Card>(this IList<Card> list)
         {

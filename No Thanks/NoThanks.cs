@@ -18,6 +18,7 @@ namespace No_Thanks
         int tokensOnFaceupCard = 0;         //Number of tokens on that faceupCard
         Player currentPlayer = null;        //The player whose turn it is
         int currentPlayerIndex = 0;
+        bool gameOver = false;
 
         //Constructors
         public NoThanks(int plrs)
@@ -112,10 +113,12 @@ namespace No_Thanks
             p.AddCard(faceupCard);
             if (deck.Count > 0)
             {
+                //Console.WriteLine("Drawing a new card. Deckcount = {0}", deck.Count);
                 drawNewCard();
             }
             else
             {
+                //Console.WriteLine("Alert! Can't draw anymore cards");
                 endGame();
             }
         }
@@ -148,17 +151,55 @@ namespace No_Thanks
             getNames();
             setUpDeck();
             currentPlayer = players[0];
-            while (deck.Count > 0)
+            while (deck.Count >= 0 && !gameOver)
             {
                 playerTurn();
             }
         }
 
+        //Display the totals for every player: list of cards, number of tokens
+        //Announce scores, with 1st place, 2nd place, etc
+        //Stop the turns, tally up the scores, display the tallies and declare a winner
+        //Then terminate the game or ask if you want to play again
         public void endGame()
         {
-            //End the game
-            //Stop the turns, tally up the scores, display the tallies and declare a winner
-            //Then terminate the game or ask if you want to play again
+            gameOver = true;
+            Console.WriteLine("\n\n\n\n\n" + Methods.largeBreak + "\nGAME OVER\n" + Methods.largeBreak + "\n\n\n");
+            for (int i = 0; i < players.Length; i++)
+            {
+                players[i].CalculateScore();
+            }
+            endGameDisplay();
+            Player winner = players[0];
+            for(int i = 1; i < players.Length; i++)
+            {
+                if(players[i].Score < winner.Score)
+                {
+                    winner = players[i];
+                }
+            }
+            Console.WriteLine(Methods.largeBreak + "\nThe winner is {0} with the lowest score of {1}!", winner.Name, winner.Score);
+            Console.WriteLine("Do you want to play again? [Y/N]");
+            bool valid = false;
+            while (!valid)
+            {
+                string newGame = Console.ReadLine().ToLower();
+                if (newGame.Equals("y"))
+                {
+                    valid = true;
+                    Console.WriteLine("\n\n\n");
+                    NoThanks game = new NoThanks();
+                }
+                else if (newGame.Equals("n"))
+                {
+                    Console.WriteLine("Thanks for playing!");
+                    valid = true;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter [Y]es or [N]o.");
+                }
+            }
         }
 
         public void playerTurn()
@@ -212,7 +253,7 @@ namespace No_Thanks
         public void displayChoice()
         {
             //Faceup card, your cards, others cards, your tokens, number of tokens on card
-            Console.WriteLine("\n\n\n\n\n\n\n-------------------------------------------------------------");
+            Console.WriteLine("\n\n\n\n\n\n\n" + Methods.smallBreak);
             Console.WriteLine("{0}'s Turn:\n", currentPlayer.Name);
             //Console.WriteLine("Faceup card: {0}\nTokens on card: {1}", faceupCard.Value, tokensOnFaceupCard);
             Methods.PrintFaceupCard(faceupCard, tokensOnFaceupCard);
@@ -229,11 +270,29 @@ namespace No_Thanks
 
         public void printRules()
         {
-            string rules = 
-@"Welcome to No Thanks
+            string rules = Methods.largeBreak +
+@"
+Welcome to No Thanks
 Here are the rules:
 ";
             Console.WriteLine(rules);
+        }
+
+        public void endGameDisplay()
+        {
+            //Display the totals for every player: list of cards, number of tokens
+            //Announce scores, with 1st place, 2nd place, etc
+            //Stop the turns, tally up the scores, display the tallies and declare a winner
+            for(int i = 0; i < players.Length; i++)
+            {
+                //Player:
+                //Tokens: 
+                //Cards: 
+                Console.WriteLine(Methods.smallBreak);
+                Console.WriteLine("{0}:\nTokens: {1}", players[i].Name, players[i].Tokens);
+                players[i].displayPlayerInfo();
+                Console.WriteLine("Score: {0}", players[i].Score);
+            }
         }
     }
 }
