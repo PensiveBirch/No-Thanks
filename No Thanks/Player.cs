@@ -35,7 +35,10 @@ namespace No_Thanks
         {
             cards.Add(c);
             //sort this player's cards by value order
-            Methods.Sort(cards);
+            cards.Sort(delegate (Card x, Card y)
+            {
+                return x.Value.CompareTo(y.Value);
+            });
         }
 
         //Calculates a player's score
@@ -63,7 +66,14 @@ namespace No_Thanks
             Console.WriteLine("{0}'s cards:", name);
             for (int i = 0; i < cards.Count; i++)
             {
-                Console.Write("{0}, ", cards[i].Value);
+                if (i < cards.Count - 1)
+                {
+                    Console.Write("{0}, ", cards[i].Value);
+                }
+                else
+                {
+                    Console.Write("{0}", cards[i].Value);
+                }
             }
             Console.WriteLine();
         }
